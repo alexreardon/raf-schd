@@ -6,6 +6,7 @@
   "scripts": {
     "build": "babel src -d lib",
     "test": "jest",
+    "validate": "yarn run lint && yarn run typecheck",
     "lint": "eslint src test",
     "typecheck": "flow check"
   },
