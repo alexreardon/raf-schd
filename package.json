@@ -8,7 +8,8 @@
     "test": "jest",
     "validate": "yarn run lint && yarn run typecheck",
     "lint": "eslint src test",
-    "typecheck": "flow check"
+    "typecheck": "flow check",
+    "prepublish": "yarn run build"
   },
   "devDependencies": {
     "babel-cli": "6.24.1",
