@@ -1,9 +1,11 @@
 // @flow
-export default (fn: Function) => {
+type ResultFn = (...arg: any[]) => number;
+
+export default (fn: Function): ResultFn => {
   let lastArgs: any[] = [];
   let frameId: ?number = null;
 
-  return (...args: any[]): number => {
+  const result: ResultFn = (...args: any): number => {
     // Always capture the latest value
     lastArgs = args;
 
@@ -20,4 +22,6 @@ export default (fn: Function) => {
 
     return frameId;
   };
+
+  return result;
 };
