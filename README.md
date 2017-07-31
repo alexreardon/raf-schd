@@ -62,7 +62,7 @@ function doSomething(scroll_pos) {
   // do something with the scroll position
 }
 
-const scheduled = rafSchedule(doSomething);
+const schedule = rafSchedule(doSomething);
 
 window.addEventListener('scroll', function() {
   schedule(window.scrollY);
