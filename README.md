@@ -7,14 +7,14 @@ A scheduler based on [`requestAnimationFrame`](https://developer.mozilla.org/en-
 
 
 ```js
-import rafScheduler from 'raf-schd';
+import rafSchedule from 'raf-schd';
 
 const expensiveFn = (arg) => {
   //...
   console.log(arg);
 }
 
-const schedule = rafScheduler(expensiveFn);
+const schedule = rafSchedule(expensiveFn);
 
 schedule('foo');
 schedule('bar');
@@ -56,7 +56,7 @@ window.addEventListener('scroll', function(e) {
 ### With `raf-schd`
 
 ```js
-import rafScheduler from 'raf-schd';
+import rafSchedule from 'raf-schd';
 
 function doSomething(scroll_pos) {
   // do something with the scroll position
@@ -74,7 +74,7 @@ window.addEventListener('scroll', function() {
 ### `rafSchduler`
 
 ```js
-type rafScheduler = (fn: Function) => ResultFn
+type rafSchedule = (fn: Function) => ResultFn
 
 type ResultFn = (...arg: any[]) => number;
 ```
@@ -86,11 +86,11 @@ The `ResultFn` will execute your function with the **latest arguments** provided
 **Throttled with latest argument**
 
 ```js
-import rafScheduler from 'raf-schd';
+import rafSchedule from 'raf-schd';
 
 const doSomething = () => {...};
 
-const schedule = rafScheduler(doSomething);
+const schedule = rafSchedule(doSomething);
 
 schedule(1, 2);
 schedule(3, 4);
@@ -114,6 +114,24 @@ cancelAnimationFrame(frameId);
 // now doSomething will not be executed in the next animation frame
 ```
 
+## Is this a `throttle`, `debounce` or something else?
+
+`raf-schd` is closer to `throttle` than it is `debounce`. It is not like `debounce` because it does not wait for a period of quiet before firing the function.
+
+Lets take a look at the characteristics of this library:
+
+**Similiarities to `throttle`**
+
+- It batches multiple calls into a single event
+- It only executes the wrapped function with the latest argument
+- It will not execute anything if the function is not invoked
+- One invokation of a scheduled function always results in at least one function call, unless canceled. This is `throttle` with tail calls enabled.
+
+**Differences to `throttle`**
+
+- Rather than throttling based on time (such as `200ms`, this library throttles based on `requestAnimationFrame`. This allows the browser to control how many frames to provide per second to optimise rendering.
+- Individual frames of `raf-schd` can be canceled using `cancelAnimationFrame` as it returns the frame id.
+
 ## Testing your code
 
 If you want to really ensure that your code is working how you intend it to - use [`raf-stub`](https://github.com/alexreardon/raf-stub) to test your animation frame logic.
@@ -133,7 +151,7 @@ npm install raf-schd --save
 ### ES6 module
 
 ```js
-import rafScheduler from 'raf-schd';
+import rafSchedule from 'raf-schd';
 ```
 
 ### CommonJS
@@ -141,8 +159,5 @@ import rafScheduler from 'raf-schd';
 If you are in a CommonJS environment (eg [Node](https://nodejs.org)), then **you will need add `.default` to your import**:
 
 ```js
-const rafScheduler = require('raf-schd').default;
+const rafSchedule = require('raf-schd').default;
 ```
-
-
-
