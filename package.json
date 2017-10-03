@@ -3,6 +3,9 @@
   "version": "2.0.1",
   "description": "A simple scheduler based on requestAnimationFrame",
   "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "build": "babel src -d lib",
     "test": "jest",
