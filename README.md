@@ -76,14 +76,20 @@ window.addEventListener('scroll', function() {
 ```js
 type rafSchedule = (fn: Function) => ResultFn
 
-type ResultFn = (...arg: any[]) => number;
+// Adding a .cancel property to the WrapperFn
+
+type WrapperFn = (...arg: any[]) => number;
+type CancelFn = {|
+  cancel: () => void,
+|};
+type ResultFn = WrapperFn & CancelFn;
 ```
 
-At the top level `raf-schd` accepts any function a returns a new `ResultFn` (a function that wraps your original function). When executed, the `ResultFn` returns a `number`. This number is the animation frame id. You can use this frame id to cancel the scheduled frame using `cancelAnimationFrame(id)`;
+At the top level `raf-schd` accepts any function a returns a new `ResultFn` (a function that wraps your original function). When executed, the `ResultFn` returns a `number`. This number is the animation frame id. You can cancel a frame using the `.cancel()` property on the `ResultFn`.
 
 The `ResultFn` will execute your function with the **latest arguments** provided to it on the next animation frame.
 
-**Throttled with latest argument**
+### Throttled with latest argument
 
 ```js
 import rafSchedule from 'raf-schd';
@@ -101,8 +107,25 @@ schedule(5, 6);
 // do something called with => '5, 6'
 ```
 
+### Cancelling a frame
 
-**Cancelling a frame**
+#### `.cancel`
+
+`raf-schd` adds a `.cancel` property to the `ResultFn` so that it can be easily cancelled. The frame will only be cancelled if it has not yet executed.
+
+```js
+const scheduled = rafSchedule(doSomething);
+
+schedule('foo');
+
+scheduled.cancel();
+
+// now doSomething will not be executed in the next animation frame
+```
+
+#### `cancelAnimationFrame`
+
+You can use [`cancelAnimationFrame`](https://developer.mozilla.org/en-US/docs/Web/API/Window/cancelAnimationFrame) directly to cancel a frame if you like. You can do this because you have the `frameId`.
 
 ```js
 const scheduled = rafSchedule(doSomething);
@@ -120,14 +143,14 @@ cancelAnimationFrame(frameId);
 
 Lets take a look at the characteristics of this library:
 
-**Similiarities to `throttle`**
+### Similarities to `throttle`
 
 - It batches multiple calls into a single event
 - It only executes the wrapped function with the latest argument
 - It will not execute anything if the function is not invoked
 - One invokation of a scheduled function always results in at least one function call, unless canceled. This is `throttle` with tail calls enabled.
 
-**Differences to `throttle`**
+### Differences to `throttle`
 
 - Rather than throttling based on time (such as `200ms`, this library throttles based on `requestAnimationFrame`. This allows the browser to control how many frames to provide per second to optimise rendering.
 - Individual frames of `raf-schd` can be canceled using `cancelAnimationFrame` as it returns the frame id.
