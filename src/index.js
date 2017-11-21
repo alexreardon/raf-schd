@@ -23,5 +23,12 @@ export default (fn: Function): ResultFn => {
     return frameId;
   };
 
+  // Adding cancel property to result function
+  result.cancel = () => {
+    if (frameId) {
+      cancelAnimationFrame(frameId);
+    }
+  };
+
   return result;
 };

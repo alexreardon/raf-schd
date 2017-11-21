@@ -105,6 +105,17 @@ describe('behaviour', () => {
 
     expect(myMock).toHaveBeenCalledTimes(0);
   });
+
+  it('should allow cancelling of the frame directly', () => {
+    const myMock = jest.fn();
+    const fn = rafScheduler(myMock);
+
+    fn.cancel();
+    // would normally release the function
+    requestAnimationFrame.step();
+
+    expect(myMock).toHaveBeenCalledTimes(0);
+  });
 });
 
 describe('respecting original "this" context', () => {
