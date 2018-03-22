@@ -214,11 +214,16 @@ describe('flow type', () => {
     type FakeFn = (x: number) => AnimationFrameID
     // create a frame to get it's frameId
     const frameId: AnimationFrameID = requestAnimationFrame(() => { });
-    const fakeFn: FakeFn = (x: number) => frameId;
+    const fakeFn: FakeFn = (x: number) => {
+      void (x);
+      return frameId;
+    };
 
-    const schedule: FakeFn = rafSchedule(fakeFn);
+    const schedule = rafSchedule(fakeFn);
 
     schedule(10);
+
+    schedule('hi');
 
     schedule.cancel();
   });
