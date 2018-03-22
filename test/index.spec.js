@@ -219,11 +219,9 @@ describe('flow type', () => {
       return frameId;
     };
 
-    const schedule = rafSchedule(fakeFn);
+    const schedule: FakeFn = rafSchedule(fakeFn);
 
     schedule(10);
-
-    schedule('hi');
 
     schedule.cancel();
   });
