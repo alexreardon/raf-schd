@@ -1550,9 +1550,9 @@ eslint-visitor-keys@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-1.0.0.tgz#3f3180fb2e291017716acb4c9d6d5b5c34a6a81d"
 
-eslint@4.19.0:
-  version "4.19.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.19.0.tgz#9e900efb5506812ac374557034ef6f5c3642fc4c"
+eslint@4.19.1:
+  version "4.19.1"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.19.1.tgz#32d1d653e1d90408854bfb296f076ec7e186a300"
   dependencies:
     ajv "^5.3.0"
     babel-code-frame "^6.22.0"
@@ -3520,9 +3520,9 @@ qs@~6.5.1:
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.1.tgz#349cdf6eef89ec45c12d7d5eb3fc0c870343a6d8"
 
-raf-stub@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/raf-stub/-/raf-stub-2.0.1.tgz#fa04aefa3f3b4bd89712b24187b622f24265bf12"
+raf-stub@2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/raf-stub/-/raf-stub-2.0.2.tgz#0f76b208876d88741667e1975560d172ec2aaf84"
   dependencies:
     performance-now "2.1.0"
 
