@@ -1,4 +1,19 @@
 {
-  "presets": ["flow", "es2015"],
-  "comments": false
+  "presets": [
+    "flow",
+    ["env", { "modules": false, "loose": true }]
+  ],
+  "comments": false,
+  "env": {
+    "cjs": {
+      "plugins": [
+        "transform-es2015-modules-commonjs"
+      ]
+    },
+    "test": {
+      "plugins": [
+        "transform-es2015-modules-commonjs"
+      ]
+    }
+  }
 }

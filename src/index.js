@@ -1,5 +1,5 @@
 // @flow
-type WrapperFn = (...arg: any[]) => number;
+type WrapperFn = (...arg: any[]) => AnimationFrameID;
 type CancelFn = {|
   cancel: () => void,
 |};
@@ -7,9 +7,9 @@ type ResultFn = WrapperFn & CancelFn;
 
 export default (fn: Function): ResultFn => {
   let lastArgs: any[] = [];
-  let frameId: ?number = null;
+  let frameId: ?AnimationFrameID = null;
 
-  const wrapperFn: WrapperFn = (...args: any): number => {
+  const wrapperFn: WrapperFn = (...args: any): AnimationFrameID => {
     // Always capture the latest value
     lastArgs = args;
 

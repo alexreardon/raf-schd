@@ -10,3 +10,4 @@ node_modules/
 
 # generated files
 lib/
+esm/
