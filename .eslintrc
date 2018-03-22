@@ -1,6 +1,7 @@
 {
 "extends": [
-    "eslint:recommended"
+    "eslint:recommended",
+    "plugin:flowtype/recommended"
   ],
   "parser": "babel-eslint",
   "plugins": [
