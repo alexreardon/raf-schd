@@ -89,7 +89,7 @@ describe('behaviour', () => {
     const myMock = jest.fn();
     const fn = rafSchedule(myMock);
 
-    const frameId: number = fn();
+    const frameId: AnimationFrameID = fn();
 
     expect(frameId).toEqual(expect.any(Number));
   });
@@ -98,7 +98,7 @@ describe('behaviour', () => {
     const myMock = jest.fn();
     const fn = rafSchedule(myMock);
 
-    const frameId: number = fn();
+    const frameId: AnimationFrameID = fn();
     cancelAnimationFrame(frameId);
     // would normally release the function
     requestAnimationFrame.step();
@@ -211,8 +211,10 @@ describe('respecting original "this" context', () => {
 
 describe('flow type', () => {
   it('should type the result function correctly', () => {
-    type FakeFn = (x: number) => number
-    const fakeFn: FakeFn = (x: number) => x;
+    type FakeFn = (x: number) => AnimationFrameID
+    // create a frame to get it's frameId
+    const frameId: AnimationFrameID = requestAnimationFrame(() => { });
+    const fakeFn: FakeFn = (x: number) => frameId;
 
     const schedule: FakeFn = rafSchedule(fakeFn);
 

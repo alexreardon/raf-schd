@@ -3,31 +3,13 @@
   "version": "2.1.0",
   "description": "A simple scheduler based on requestAnimationFrame",
   "main": "lib/index.js",
+  "module": "esm/index.js",
+  "sideEffects": false,
   "files": [
-    "lib"
+    "/lib",
+    "/esm",
+    "/src"
   ],
-  "scripts": {
-    "build": "babel src -d lib",
-    "test": "jest",
-    "validate": "yarn run lint && yarn run typecheck",
-    "lint": "eslint src test",
-    "typecheck": "flow check",
-    "prepublish": "yarn run build"
-  },
-  "devDependencies": {
-    "babel-cli": "6.26.0",
-    "babel-eslint": "8.0.2",
-    "babel-jest": "^21.2.0",
-    "babel-preset-es2015": "6.24.1",
-    "babel-preset-flow": "6.23.0",
-    "eslint": "4.11.0",
-    "eslint-plugin-jest": "21.3.2",
-    "flow-bin": "0.59.0",
-    "jest": "21.2.1",
-    "prettier": "1.8.2",
-    "raf-stub": "2.0.1"
-  },
-  "dependencies": {},
   "author": "Alex Reardon <alexreardon@gmail.com>",
   "license": "MIT",
   "repository": {
@@ -39,5 +21,33 @@
     "raf",
     "requestAnimationFrame",
     "cancelAnimationFrame"
-  ]
+  ],
+  "scripts": {
+    "build": "yarn run build:clean && yarn run build:lib && yarn run build:esm && yarn run build:flow",
+    "test": "jest",
+    "validate": "yarn run lint && yarn run typecheck",
+    "lint": "eslint src test",
+    "typecheck": "flow check",
+    "build:clean": "rimraf lib esm",
+    "build:lib": "cross-env NODE_ENV=cjs babel src -d lib",
+    "build:esm": "babel src --out-dir esm",
+    "build:flow": "flow-copy-source --verbose src lib && flow-copy-source --verbose src esm",
+    "prepublish": "yarn run build"
+  },
+  "devDependencies": {
+    "babel-cli": "6.26.0",
+    "babel-eslint": "8.2.2",
+    "babel-jest": "^22.4.3",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-flow": "6.23.0",
+    "cross-env": "^5.1.4",
+    "eslint": "4.19.0",
+    "eslint-plugin-jest": "21.15.0",
+    "flow-bin": "0.68.0",
+    "flow-copy-source": "^1.3.0",
+    "jest": "22.4.3",
+    "raf-stub": "2.0.1",
+    "rimraf": "^2.6.2"
+  },
+  "dependencies": {}
 }

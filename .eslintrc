@@ -4,11 +4,13 @@
   ],
   "parser": "babel-eslint",
   "plugins": [
-    "jest"
+    "jest",
+    "flowtype"
   ],
   "env": {
-    "es6": true,
+    "node": true,
     "browser": true,
+    "es6": true,
     "jest/globals": true
   },
   // custom rules
@@ -132,6 +134,8 @@
     "indent": [
       "error",
       2
-    ]
+    ],
+    // Require // @flow at the top of files
+    "flowtype/require-valid-file-annotation": ["error", "always", { "annotationStyle": "line" }]
   }
 }
