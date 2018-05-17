@@ -1,6 +1,6 @@
 {
   "name": "raf-schd",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "A simple scheduler based on requestAnimationFrame",
   "main": "lib/index.js",
   "module": "esm/index.js",
