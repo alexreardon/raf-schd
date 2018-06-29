@@ -1,13 +1,12 @@
 {
   "name": "raf-schd",
-  "version": "3.0.0",
-  "description": "A simple scheduler based on requestAnimationFrame",
-  "main": "lib/index.js",
-  "module": "esm/index.js",
+  "version": "3.0.1",
+  "description": "A scheduler based on requestAnimationFrame",
+  "main": "dist/raf-schd.cjs.js",
+  "module": "dist/raf-schd.esm.js",
   "sideEffects": false,
   "files": [
-    "/lib",
-    "/esm",
+    "/dist",
     "/src"
   ],
   "author": "Alex Reardon <alexreardon@gmail.com>",
