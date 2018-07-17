@@ -85,27 +85,6 @@ describe('behaviour', () => {
     expect(myMock.mock.calls[0][0]).toBe(value);
   });
 
-  it('should return the frame id', () => {
-    const myMock = jest.fn();
-    const fn = rafSchedule(myMock);
-
-    const frameId: AnimationFrameID = fn();
-
-    expect(frameId).toEqual(expect.any(Number));
-  });
-
-  it('should allow cancelled of a frame using cancelAnimationFrame', () => {
-    const myMock = jest.fn();
-    const fn = rafSchedule(myMock);
-
-    const frameId: AnimationFrameID = fn();
-    cancelAnimationFrame(frameId);
-    // would normally release the function
-    requestAnimationFrame.step();
-
-    expect(myMock).toHaveBeenCalledTimes(0);
-  });
-
   it('should allow cancelling of a frame using .cancel', () => {
     const myMock = jest.fn();
     const fn = rafSchedule(myMock);
@@ -140,14 +119,14 @@ describe('behaviour', () => {
 describe('respecting original "this" context', () => {
   it('should respect new bindings', () => {
     const mock = jest.fn();
-    const Foo = function (a: number) {
+    const Foo = function(a: number) {
       this.a = a;
     };
-    Foo.prototype.callMock = function () {
+    Foo.prototype.callMock = function() {
       return mock(this.a);
     };
     const foo = new Foo(10);
-    const schedule = rafSchedule(function () {
+    const schedule = rafSchedule(function() {
       foo.callMock();
     });
 
@@ -159,7 +138,7 @@ describe('respecting original "this" context', () => {
 
   it('should respect explicit bindings', () => {
     const mock = jest.fn();
-    const callMock = function () {
+    const callMock = function() {
       mock(this.a);
     };
     const foo = {
@@ -178,12 +157,12 @@ describe('respecting original "this" context', () => {
     const mock = jest.fn();
     const foo = {
       a: 50,
-      callMock: function () {
+      callMock: function() {
         mock(this.a);
       },
     };
 
-    const schedule = rafSchedule(function () {
+    const schedule = rafSchedule(function() {
       foo.callMock();
     });
 
@@ -195,11 +174,11 @@ describe('respecting original "this" context', () => {
 
   it('should respect ignored bindings', () => {
     const mock = jest.fn();
-    const callMock = function () {
+    const callMock = function() {
       // $ExpectError - this should throw!
       mock(this.a);
     };
-    const schedule = rafSchedule(function () {
+    const schedule = rafSchedule(function() {
       callMock.call(null);
     });
 
@@ -211,12 +190,9 @@ describe('respecting original "this" context', () => {
 
 describe('flow type', () => {
   it('should type the result function correctly', () => {
-    type FakeFn = (x: number) => AnimationFrameID
-    // create a frame to get it's frameId
-    const frameId: AnimationFrameID = requestAnimationFrame(() => { });
+    type FakeFn = (x: number) => mixed;
     const fakeFn: FakeFn = (x: number) => {
-      void (x);
-      return frameId;
+      return x;
     };
 
     const schedule: FakeFn = rafSchedule(fakeFn);
@@ -226,4 +202,3 @@ describe('flow type', () => {
     schedule.cancel();
   });
 });
-

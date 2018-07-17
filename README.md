@@ -2,17 +2,15 @@
 
 A scheduler based on [`requestAnimationFrame`](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame). It throttles calls to a function and only invokes it with the latest argument in the frame period.
 
-
 [![Build Status](https://travis-ci.org/alexreardon/raf-schd.svg?branch=master)](https://travis-ci.org/alexreardon/raf-schd) [![dependencies](https://david-dm.org/alexreardon/raf-schd.svg)](https://david-dm.org/alexreardon/raf-schd) [![npm](https://img.shields.io/npm/v/raf-schd.svg)](https://www.npmjs.com/package/raf-schd) [![SemVer](https://img.shields.io/badge/SemVer-2.0.0-brightgreen.svg)](http://semver.org/spec/v2.0.0.html)
-
 
 ```js
 import rafSchedule from 'raf-schd';
 
-const expensiveFn = (arg) => {
+const expensiveFn = arg => {
   //...
   console.log(arg);
-}
+};
 
 const schedule = rafSchedule(expensiveFn);
 
@@ -74,7 +72,7 @@ window.addEventListener('scroll', function() {
 ### `rafSchduler`
 
 ```js
-type rafSchedule = (fn: Function) => ResultFn
+type rafSchedule = (fn: Function) => ResultFn;
 
 // Adding a .cancel property to the WrapperFn
 
