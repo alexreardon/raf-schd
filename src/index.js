@@ -1,5 +1,6 @@
 // @flow
-type WrapperFn = (...args: mixed[]) => mixed;
+
+type WrapperFn = (...args: mixed[]) => void;
 type CancelFn = {|
   cancel: () => void,
 |};
@@ -9,13 +10,13 @@ export default (fn: Function): ResultFn => {
   let lastArgs: mixed[] = [];
   let frameId: ?AnimationFrameID = null;
 
-  const wrapperFn: WrapperFn = (...args: mixed[]) => {
+  const wrapperFn: WrapperFn = (...args: mixed[]): void => {
     // Always capture the latest value
     lastArgs = args;
 
     // There is already a frame queued
     if (frameId) {
-      return frameId;
+      return;
     }
 
     // Schedule a new frame

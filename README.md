@@ -76,7 +76,7 @@ type rafSchedule = (fn: Function) => ResultFn;
 
 // Adding a .cancel property to the WrapperFn
 
-type WrapperFn = (...arg: mixed[]) => mixed;
+type WrapperFn = (...arg: mixed[]) => void;
 type CancelFn = {|
   cancel: () => void,
 |};

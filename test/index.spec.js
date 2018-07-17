@@ -191,7 +191,7 @@ describe('respecting original "this" context', () => {
 describe('flow type', () => {
   it('should type the result function correctly', () => {
     type FakeFn = (x: number) => mixed;
-    const fakeFn: FakeFn = (x: number) => {
+    const fakeFn: FakeFn = (x: number): number => {
       return x;
     };
 
