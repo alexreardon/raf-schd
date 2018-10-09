@@ -6,15 +6,7 @@ type CancelFn = {|
 |};
 type ResultFn = WrapperFn & CancelFn;
 
-type Options = {|
-  leading: boolean,
-|};
-
-const defaultOptions: Options = {
-  leading: false,
-};
-
-export default (fn: Function, options?: Options = defaultOptions): ResultFn => {
+export default (fn: Function): ResultFn => {
   let lastArgs: mixed[] = [];
   let frameId: ?AnimationFrameID = null;
 
@@ -27,19 +19,9 @@ export default (fn: Function, options?: Options = defaultOptions): ResultFn => {
       return;
     }
 
-    // no frame queued - execute fn if leading
-    if (options.leading) {
-      fn(...lastArgs);
-    }
-
     // Schedule a new frame
     frameId = requestAnimationFrame(() => {
       frameId = null;
-
-      // leading call already executed
-      if (options.leading && args === lastArgs) {
-        return;
-      }
 
       fn(...lastArgs);
     });

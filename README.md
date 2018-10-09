@@ -1,8 +1,10 @@
 # raf-schd
 
-A scheduler based on [`requestAnimationFrame`](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame). It throttles calls to a function and only invokes it with the latest argument in the frame period.
+A `throttle` function that uses [`requestAnimationFrame`](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) to limit the rate at which a function is called based on how many animation frames a browser can supply.
 
 [![Build Status](https://travis-ci.org/alexreardon/raf-schd.svg?branch=master)](https://travis-ci.org/alexreardon/raf-schd) [![dependencies](https://david-dm.org/alexreardon/raf-schd.svg)](https://david-dm.org/alexreardon/raf-schd) [![npm](https://img.shields.io/npm/v/raf-schd.svg)](https://www.npmjs.com/package/raf-schd) [![SemVer](https://img.shields.io/badge/SemVer-2.0.0-brightgreen.svg)](http://semver.org/spec/v2.0.0.html)
+
+> For background information on rate limiting functions, see [Rate limiting functions from scratch](https://www.youtube.com/watch?v=g_3e_bNU2e0)
 
 ```js
 import rafSchd from 'raf-schd';
@@ -25,7 +27,9 @@ schedule('baz');
 
 ## Why?
 
-`raf-schd` supports the use case where you only want to perform an action in an animation frame with the latest value. This an **extremely** useful performance optmisation.
+`raf-schd` supports the use case where you want to limit the rate at which your functions are called based on `requestAnimationFrame`. Unlike a standard `throttle` function, `raf-schd` uses `requestAnimationFrame` to rate limit, rather than waiting a fixed amount of time. Using `requestAnimationFrame` for throttling is powerful because the browser will automatically reduce the amount of frames provided based on the available resources. So if the browser only provides 30fps then your throttled function will only be called 30 times.
+
+`raf-schd` is an **extremely** useful performance utility.
 
 ### Without `raf-schd`
 
@@ -67,22 +71,6 @@ window.addEventListener('scroll', function() {
 });
 ```
 
-## Types
-
-### `rafSchedule`
-
-```js
-type rafSchedule = (fn: Function) => ResultFn;
-
-// Adding a .cancel property to the WrapperFn
-
-type WrapperFn = (...arg: mixed[]) => void;
-type CancelFn = {|
-  cancel: () => void,
-|};
-type ResultFn = WrapperFn & CancelFn;
-```
-
 At the top level `raf-schd` accepts any function a returns a new `ResultFn` (a function that wraps your original function).
 
 The `ResultFn` will execute your function with the **latest arguments** provided to it on the next animation frame.
@@ -119,22 +107,20 @@ scheduled.cancel();
 // now doSomething will not be executed in the next animation frame
 ```
 
-## Is this a `throttle`, `debounce` or something else?
+## Types
 
-`raf-schd` is very close to a regular `throttle` function. However, rather than waiting for a fixed period of time before the wrapped function is called (such as `20ms`), `raf-schd` waits for an animation frame.
-
-### Differences to `throttle`
-
-- No leading function call. The wrapped function is not called on the first call.
+### `rafSchedule`
 
 ```js
-const scheduled = rafSchd(console.log);
+type rafSchedule = (fn: Function) => ResultFn;
 
-schedule('foo');
-// function not called yet
+// Adding a .cancel property to the WrapperFn
 
-// after an animation frame
-// => console.log('foo');
+type WrapperFn = (...arg: mixed[]) => void;
+type CancelFn = {|
+  cancel: () => void,
+|};
+type ResultFn = WrapperFn & CancelFn;
 ```
 
 ## Testing your code
