@@ -22,7 +22,6 @@ export default (fn: Function): ResultFn => {
     // Schedule a new frame
     frameId = requestAnimationFrame(() => {
       frameId = null;
-
       fn(...lastArgs);
     });
   };
