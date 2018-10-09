@@ -188,6 +188,37 @@ describe('respecting original "this" context', () => {
   });
 });
 
+describe('with leading', () => {
+  it('should call the fn immediately', () => {
+    const myMock = jest.fn();
+    const fn = rafSchedule(myMock, { leading: true });
+
+    fn(1);
+
+    expect(myMock).toHaveBeenCalledTimes(1);
+    expect(myMock).toHaveBeenCalledWith(1);
+  });
+
+  it('should call fn after a frame if called again while waiting for a frame', () => {
+    const myMock = jest.fn();
+    const fn = rafSchedule(myMock, { leading: true });
+
+    fn(1);
+    expect(myMock).toHaveBeenCalledTimes(1);
+    expect(myMock).toHaveBeenCalledWith(1);
+    myMock.mockClear();
+
+    fn(2);
+    fn(3);
+    fn(4);
+    expect(myMock).not.toHaveBeenCalled();
+
+    requestAnimationFrame.step();
+    expect(myMock).toHaveBeenCalledTimes(1);
+    expect(myMock).toHaveBeenCalledWith(4);
+  });
+});
+
 describe('flow type', () => {
   it('should type the result function correctly', () => {
     type FakeFn = (x: number) => mixed;
