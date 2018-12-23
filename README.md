@@ -98,11 +98,11 @@ schedule(5, 6);
 `raf-schd` adds a `.cancel` property to the `ResultFn` so that it can be easily cancelled. The frame will only be cancelled if it has not yet executed.
 
 ```js
-const scheduled = rafSchd(doSomething);
+const schedule = rafSchd(doSomething);
 
 schedule('foo');
 
-scheduled.cancel();
+schedule.cancel();
 
 // now doSomething will not be executed in the next animation frame
 ```
