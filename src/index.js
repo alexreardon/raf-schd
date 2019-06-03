@@ -1,16 +1,17 @@
 // @flow
 
-type WrapperFn = (...args: mixed[]) => void;
-type CancelFn = {|
+type WrapperFn<T> = {
+  [[call]]: (...T) => void,
   cancel: () => void,
-|};
-type ResultFn = WrapperFn & CancelFn;
+};
 
-export default (fn: Function): ResultFn => {
-  let lastArgs: mixed[] = [];
+const rafSchd = <T: $ReadOnlyArray<any>>(
+  fn: (...T) => void,
+): WrapperFn<T> => {
+  let lastArgs: T = ([]: any);
   let frameId: ?AnimationFrameID = null;
 
-  const wrapperFn: WrapperFn = (...args: mixed[]): void => {
+  const wrapperFn: WrapperFn<T> = (...args: T) => {
     // Always capture the latest value
     lastArgs = args;
 
@@ -36,7 +37,7 @@ export default (fn: Function): ResultFn => {
     frameId = null;
   };
 
-  const resultFn: ResultFn = (wrapperFn: any);
-
-  return resultFn;
+  return wrapperFn;
 };
+
+export default rafSchd;
