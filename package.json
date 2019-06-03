@@ -1,6 +1,6 @@
 {
   "name": "raf-schd",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "A scheduler based on requestAnimationFrame",
   "main": "dist/raf-schd.cjs.js",
   "module": "dist/raf-schd.esm.js",
