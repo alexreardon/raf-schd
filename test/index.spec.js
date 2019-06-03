@@ -5,6 +5,7 @@ import rafSchedule from '../src/';
 replaceRaf();
 
 beforeEach(() => {
+  // $FlowFixMe
   requestAnimationFrame.reset();
 });
 
@@ -23,6 +24,7 @@ describe('behaviour', () => {
     const fn = rafSchedule(myMock);
 
     fn();
+    // $FlowFixMe
     requestAnimationFrame.step();
 
     expect(myMock).toHaveBeenCalledTimes(1);
@@ -37,11 +39,14 @@ describe('behaviour', () => {
     fn();
     fn();
 
+    // $FlowFixMe
     requestAnimationFrame.step();
     expect(myMock).toHaveBeenCalledTimes(1);
 
     // should have no impact
+    // $FlowFixMe
     requestAnimationFrame.step();
+    // $FlowFixMe
     requestAnimationFrame.flush();
     expect(myMock).toHaveBeenCalledTimes(1);
   });
@@ -54,6 +59,7 @@ describe('behaviour', () => {
     fn(2);
     fn(3);
     fn(4);
+    // $FlowFixMe
     requestAnimationFrame.step();
 
     expect(myMock).toHaveBeenCalledTimes(1);
@@ -67,6 +73,7 @@ describe('behaviour', () => {
     fn(1, 2, 3);
     fn(4, 5, 6);
     fn(7, 8, 9);
+    // $FlowFixMe
     requestAnimationFrame.step();
 
     expect(myMock).toHaveBeenCalledTimes(1);
@@ -79,6 +86,7 @@ describe('behaviour', () => {
     const value = { hello: 'world' };
 
     fn(value);
+    // $FlowFixMe
     requestAnimationFrame.step();
 
     expect(myMock).toHaveBeenCalledTimes(1);
@@ -92,6 +100,7 @@ describe('behaviour', () => {
     fn(10);
     fn.cancel();
     // would normally release the function
+    // $FlowFixMe
     requestAnimationFrame.step();
 
     expect(myMock).toHaveBeenCalledTimes(0);
@@ -105,12 +114,14 @@ describe('behaviour', () => {
     fn(10);
     fn.cancel();
     // would normally release the function
+    // $FlowFixMe
     requestAnimationFrame.step();
 
     expect(myMock).toHaveBeenCalledTimes(0);
 
     // second frame is not cancelled
     fn(20);
+    // $FlowFixMe
     requestAnimationFrame.step();
     expect(myMock).toHaveBeenCalledWith(20);
   });
@@ -131,6 +142,7 @@ describe('respecting original "this" context', () => {
     });
 
     schedule();
+    // $FlowFixMe
     requestAnimationFrame.step();
 
     expect(mock).toBeCalledWith(10);
@@ -148,6 +160,7 @@ describe('respecting original "this" context', () => {
     const schedule = rafSchedule(bound);
 
     schedule();
+    // $FlowFixMe
     requestAnimationFrame.step();
 
     expect(mock).toBeCalledWith(foo.a);
@@ -167,6 +180,7 @@ describe('respecting original "this" context', () => {
     });
 
     schedule();
+    // $FlowFixMe
     requestAnimationFrame.step();
 
     expect(mock).toBeCalledWith(foo.a);
@@ -184,18 +198,16 @@ describe('respecting original "this" context', () => {
 
     schedule();
 
+    // $FlowFixMe
     expect(() => requestAnimationFrame.step()).toThrow();
   });
 });
 
 describe('flow type', () => {
   it('should type the result function correctly', () => {
-    type FakeFn = (x: number) => mixed;
-    const fakeFn: FakeFn = (x: number): number => {
-      return x;
-    };
+    const fakeFn = (x: number): void => {};
 
-    const schedule: FakeFn = rafSchedule(fakeFn);
+    const schedule = rafSchedule(fakeFn);
 
     schedule(10);
 
