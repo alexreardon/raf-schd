@@ -37,21 +37,21 @@
     "prepublish": "yarn run build"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.5",
-    "@babel/preset-env": "^7.4.5",
+    "@babel/core": "^7.5.0",
+    "@babel/preset-env": "^7.5.2",
     "@babel/preset-flow": "^7.0.0",
-    "babel-eslint": "10.0.1",
+    "babel-eslint": "10.0.2",
     "babel-jest": "^24.8.0",
     "cross-env": "^5.2.0",
-    "flow-bin": "0.100.0",
+    "flow-bin": "0.102.0",
     "jest": "24.8.0",
-    "prettier": "^1.17.1",
+    "prettier": "^1.18.2",
     "raf-stub": "2.0.2",
     "rimraf": "^2.6.3",
-    "rollup": "^1.13.1",
-    "rollup-plugin-babel": "^4.3.2",
+    "rollup": "^1.16.6",
+    "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-replace": "^2.2.0",
-    "rollup-plugin-terser": "^5.0.0"
+    "rollup-plugin-terser": "^5.1.1"
   },
   "dependencies": {}
 }
