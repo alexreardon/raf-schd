@@ -3268,7 +3268,7 @@ path-type@^3.0.0:
   dependencies:
     pify "^3.0.0"
 
-performance-now@2.1.0, performance-now@^2.1.0:
+performance-now@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
 
@@ -3363,11 +3363,10 @@ qs@~6.5.1:
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.1.tgz#349cdf6eef89ec45c12d7d5eb3fc0c870343a6d8"
 
-raf-stub@2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/raf-stub/-/raf-stub-2.0.2.tgz#0f76b208876d88741667e1975560d172ec2aaf84"
-  dependencies:
-    performance-now "2.1.0"
+raf-stub@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/raf-stub/-/raf-stub-3.0.0.tgz#40e53dc3ad3b241311f914bbd41dc11a2c9ee0a9"
+  integrity sha512-64wjDTI8NAkplC3WYF3DUBXmdx8AZF0ubxiicZi83BKW5hcdvMtbwDe6gpFBngTo6+XIJbfwmUP8lMa85UPK6A==
 
 rc@^1.2.7:
   version "1.2.8"
