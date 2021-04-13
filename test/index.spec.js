@@ -189,7 +189,7 @@ describe('respecting original "this" context', () => {
   it('should respect ignored bindings', () => {
     const mock = jest.fn();
     const callMock = function() {
-      // $ExpectError - this should throw!
+      // $FlowExpectedError - this should throw!
       mock(this.a);
     };
     const schedule = rafSchedule(function() {
