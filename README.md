@@ -2,7 +2,7 @@
 
 A `throttle` function that uses [`requestAnimationFrame`](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) to limit the rate at which a function is called.
 
-[![Build Status](https://travis-ci.org/alexreardon/raf-schd.svg?branch=master)](https://travis-ci.org/alexreardon/raf-schd) [![dependencies](https://david-dm.org/alexreardon/raf-schd.svg)](https://david-dm.org/alexreardon/raf-schd) [![npm](https://img.shields.io/npm/v/raf-schd.svg)](https://www.npmjs.com/package/raf-schd) [![SemVer](https://img.shields.io/badge/SemVer-2.0.0-brightgreen.svg)](http://semver.org/spec/v2.0.0.html)
+[![npm](https://img.shields.io/npm/v/raf-schd.svg)](https://www.npmjs.com/package/raf-schd) [![SemVer](https://img.shields.io/badge/SemVer-2.0.0-brightgreen.svg)](http://semver.org/spec/v2.0.0.html)
 
 > For background information on rate limiting functions, see [Rate limiting functions from scratch](https://www.youtube.com/watch?v=g_3e_bNU2e0)
 
